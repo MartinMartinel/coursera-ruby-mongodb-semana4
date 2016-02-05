@@ -30,7 +30,7 @@ class Point
       when nil then nil
       when Hash then
         Point.new(object[:coordinates][0], object[:coordinates][1]) 
-      when Point then Point       
+      when Point then object       
     end
   end
 
