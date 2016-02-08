@@ -5,8 +5,10 @@ class Race
   field :n, as: :name, type: String
   field :date, as: :date, type: Date
   field :loc, as: :location, type: Address
+  field :next_bib, as: :next_bib, type: Integer, default: 0
 
   embeds_many :events, as: :parent, class_name: "Event", order: [:order.asc]
+  has_many :entrants, foreign_key: 'race._id', order: [:secs.asc, :bib.asc], dependent: :delete
 
   scope :upcoming, -> {where(:date.gte => Date.current)}
   scope :past, -> {where(:date.lt => Date.current)}

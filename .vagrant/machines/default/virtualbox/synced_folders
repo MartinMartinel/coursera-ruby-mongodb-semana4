@@ -1,1 +1,1 @@
-{"virtualbox":{"/vagrant":{"nfs":true,"guestpath":"/vagrant","hostpath":"C:/Users/carcas/Documents/Carlos/apps/coursera-mongo-semana3","disabled":false}}}
+{"nfs":{"/vagrant":{"nfs":true,"guestpath":"/vagrant","hostpath":"/Users/carloscastillo/bitbucket/coursera/ruby/triresults","disabled":false,"type":"nfs","map_uid":501,"map_gid":20,"nfs_udp":true,"nfs_version":3,"uuid":"4266024839"}}}

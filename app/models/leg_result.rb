@@ -1,5 +1,6 @@
 class LegResult
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :secs, as: :secs, type: Float
 

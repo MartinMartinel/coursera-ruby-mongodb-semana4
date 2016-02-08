@@ -159,7 +159,7 @@ describe "Module #3 Summative: Implement Races Collection" do
 
     it "miles method converts miles, kilometers, meters and yards to meters or returns nil" do
       expect(Event.new(u:"miles", d:111).miles.round(1)).to eql 111.0
-      expect(Event.new(u:"kilometers", d:100000.round(1)).miles).to eql 62137.1
+      expect(Event.new(u:"kilometers", d:100000).miles.round(1)).to eql 62137.1
       expect(Event.new(u:"meters", d:100000).miles.round(4)).to eql 62.1371
       expect(Event.new(u:"yards", d:10000).miles.round(5)).to eql 5.68182
       expect(Event.new(u:"inches", d:144).miles).to be_nil

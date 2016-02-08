@@ -1,5 +1,7 @@
 class RacerInfo
   include Mongoid::Document
+  include Mongoid::Timestamps
+  
   field :fn, type: String, as: :first_name
   field :ln, type: String, as: :last_name
   field :g, type: String, as: :gender

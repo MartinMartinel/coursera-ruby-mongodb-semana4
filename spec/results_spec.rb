@@ -113,9 +113,11 @@ describe "Module #3 Summative: Implement Results Collection" do
       expect(leg.id).to be_a BSON::ObjectId
       expect(leg = LegResult.new(:secs=>60)).to_not be_nil
       expect(leg.id).to_not be_nil
-      expect(leg.secs).to eql 60.0
+      expect(leg.secs).to_not be_nil
+      expect(leg.secs.round(1)).to eql 60.0
       leg.secs=120.0
-      expect(leg.secs).to eql 120.0
+      expect(leg.secs).to_not be_nil
+      expect(leg.secs.round(1)).to eql 120.0
     end
   end
 
@@ -240,6 +242,7 @@ describe "Module #3 Summative: Implement Results Collection" do
   context "rq06" do
     it "SwimResult calc_ave method calculates the secs to travel 100 m based on event" do
       expect(s = SwimResult.new(:event=>Event.new(distance:100, units:"meters"), :secs=>10)).to_not be_nil
+      expect(s.calc_ave).to_not be_nil
       expect(s.calc_ave.round(1)).to eql 10.0
       expect(s = SwimResult.new(:event=>Event.new(distance:1, units:"miles"), :secs=>160.934)).to_not be_nil
       expect(s.calc_ave.round(1)).to eql 10.0
@@ -249,6 +252,7 @@ describe "Module #3 Summative: Implement Results Collection" do
 
     it "BikeResult calc_ave method calculates the average mph based on event" do
       expect(b = BikeResult.new(:event=>Event.new(distance:10, units:"miles"), :secs=>3600)).to_not be_nil
+      expect(b.calc_ave).to_not be_nil
       expect(b.calc_ave.round(1)).to eql 10.0
       expect(b = BikeResult.new(:event=>Event.new(distance:100, units:"kilometers"), :secs=>3600)).to_not be_nil
       expect(b.calc_ave.round(2)).to eql 62.14
@@ -258,23 +262,27 @@ describe "Module #3 Summative: Implement Results Collection" do
 
     it "RunResult calc_ave method calculates average time to run a mile based on event" do
       expect(r = RunResult.new(:event=>Event.new(distance:1, units:"miles"), :secs=>240)).to_not be_nil
+      expect(r.calc_ave).to_not be_nil
       expect(r.calc_ave.round(1)).to eql 4.0
       expect(r = RunResult.new(:event=>Event.new(distance:10, units:"kilometers"), :secs=>6000)).to_not be_nil
       expect(r.calc_ave.round(2)).to eql 16.09
       expect(r = RunResult.new(:event=>Event.new(distance:10, units:"kilometers"), :secs=>6000)).to_not be_nil
       expect(r.mmile.round(2)).to eql 16.09
-    end     
+    end
 
     it "secs= method updates field values of the result classes" do
       expect(s = SwimResult.new(event:Event.new(d:100, u:"meters"))).to_not be_nil
       s.secs=1000.0
-      expect(s.pace_100).to eq(1000.0)
+      expect(s.pace_100).to_not be_nil
+      expect(s.pace_100.round(1)).to eq(1000.0)
       expect(b = BikeResult.new(event:Event.new(d:10, u:"miles"))).to_not be_nil
       b.secs=3600.0
+      expect(b.mph).to_not be_nil
       expect(b.mph.round(1)).to eq(10.0)
       expect(r = RunResult.new(event:Event.new(d:5, u:"miles"))).to_not be_nil
       r.secs=1500.0
-      expect(r.minute_mile).to eq(5.0)
+      expect(r.minute_mile).to_not be_nil
+      expect(r.minute_mile.round(1)).to eq(5.0)
     end
   end
 
