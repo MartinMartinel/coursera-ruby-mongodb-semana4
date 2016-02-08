@@ -7,7 +7,7 @@ class Address
   #let(:hash) {{ :type=>"Point", :coordinates=>[lon0, lat0] }}
   #let(:address_hash) {{ :city=>city, :state=>state, :loc=>hash }}
 
-  def initialize city, state, loc
+  def initialize city=nil, state=nil, loc=nil
     @city = city
     @state = state
     @location = Point.new(loc[:coordinates][0], loc[:coordinates][1]) if loc && loc[:coordinates]
