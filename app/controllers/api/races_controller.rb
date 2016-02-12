@@ -2,7 +2,8 @@
 module Api
   class RacesController < ApplicationController
 
-    before_action :set_race, only: [:show, :update, :destroy, :results, :results_detail]
+    before_action :set_race, only: [:show, :update, :destroy]
+    before_action :set_entrant, only: [:results_detail]
 
     protect_from_forgery with: :null_session
 
@@ -73,7 +74,7 @@ module Api
       if !request.accept || request.accept == "*/*"
         render plain: "/api/races/#{params[:race_id]}/results/#{params[:id]}"
       else
-        #real implementation ...
+        render :partial=>"result", :object=>@result
       end 
     end
 
@@ -85,6 +86,11 @@ module Api
 
       def set_race
         @race = Race.find(params[:id])
+      end
+
+      def set_entrant
+        @race = Race.find(params[:race_id])
+        @result=@race.entrants.where(:id=>params[:id]).first
       end
 
   end
