@@ -6,6 +6,10 @@ module Api
 
     protect_from_forgery with: :null_session
 
+    rescue_from Mongoid::Errors::DocumentNotFound do |exception|
+      render plain: "woops: cannot find race[#{params[:id]}]", status: :not_found
+    end
+
     def index
       if !request.accept || request.accept == "*/*"
         offset = ", offset=[#{params[:offset]}]" if  params[:offset]
