@@ -11,7 +11,10 @@ module Api
       if !request.accept || request.accept == "*/*"
         render plain: @msg, status: :not_found
       else
-        render action: :error, status: :not_found, content_type: "#{request.accept}"
+        respond_to do |format|
+          format.json { render "error_msg", status: :not_found, content_type: "#{request.accept}" }
+          format.xml  { render "error_msg", status: :not_found, content_type: "#{request.accept}" }
+        end
       end
     end
 
