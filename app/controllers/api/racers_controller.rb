@@ -26,7 +26,7 @@ module Api
       end         
     end
 
-    def entrie_detail
+    def entries_detail
       if !request.accept || request.accept == "*/*"
         render plain: "/api/racers/#{params[:racer_id]}/entries/#{params[:id]}"
       else

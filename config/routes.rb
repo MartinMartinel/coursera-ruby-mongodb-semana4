@@ -11,29 +11,34 @@ Rails.application.routes.draw do
   
   resources :races
 
-  #scope 'api', as: 'api' do
+  #namespace 'api', as: 'api' do
   #  resources :racers do
-  #    member do
-  #      resources :entries
-  #    end
+  #    #member do
+  #    resources :entries
+  #    #  get 'entries/:id' => 'racers#entries_detail'
+  #    #end
   #  end
   #  resources :races do
-  #    member do
-  #      get :results
-  #    end
+  #    #member do
+  #    #  get :results
+  #    #  get 'results/:id' => 'races#results_detail'
+  #    #end
+  #    resources :entrants, as: 'results'
   #  end
   #end
 
   namespace 'api', as: 'api' do
     get 'races' => 'races#index'
+    post 'races' => 'races#create'
+
     get 'races/:id' => 'races#show'
     get 'races/:race_id/results' => 'races#results'
-    get 'races/:race_id/results/:id' => 'races#result_detail'
+    get 'races/:race_id/results/:id' => 'races#results_detail'
 
     get 'racers' => 'racers#index'
     get 'racers/:id' => 'racers#show'
     get 'racers/:racer_id/entries' => 'racers#entries'
-    get 'racers/:racer_id/entries/:id' => 'racers#entrie_detail'
+    get 'racers/:racer_id/entries/:id' => 'racers#entries_detail'
   end
 
   #/api/races - to represent the collection of races
