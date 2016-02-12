@@ -2,7 +2,7 @@
 module Api
   class RacesController < ApplicationController
 
-    before_action :set_race, only: [:show, :update, :results, :results_detail]
+    before_action :set_race, only: [:show, :update, :destroy, :results, :results_detail]
 
     protect_from_forgery with: :null_session
 
@@ -27,8 +27,14 @@ module Api
     end
 
     def update
+      #Rails.logger.debug("method=#{request.method}")
       @race.update_attributes(race_params)
       render json: @race
+    end
+
+    def destroy
+      @race.destroy
+      render :nothing=>true, :status => :no_content
     end
 
     def show

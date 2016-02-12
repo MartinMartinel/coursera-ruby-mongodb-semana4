@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
     get 'races/:id' => 'races#show'
     put 'races/:id' => 'races#update'
+    delete 'races/:id' => 'races#destroy'
     
     get 'races/:race_id/results' => 'races#results'
     get 'races/:race_id/results/:id' => 'races#results_detail'
