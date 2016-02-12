@@ -11,6 +11,40 @@ Rails.application.routes.draw do
   
   resources :races
 
+  #scope 'api', as: 'api' do
+  #  resources :racers do
+  #    member do
+  #      resources :entries
+  #    end
+  #  end
+  #  resources :races do
+  #    member do
+  #      get :results
+  #    end
+  #  end
+  #end
+
+  namespace 'api', as: 'api' do
+    get 'races' => 'races#index'
+    get 'races/:id' => 'races#show'
+    get 'races/:race_id/results' => 'races#results'
+    get 'races/:race_id/results/:id' => 'races#result_detail'
+
+    get 'racers' => 'racers#index'
+    get 'racers/:id' => 'racers#show'
+    get 'racers/:racer_id/entries' => 'racers#entries'
+    get 'racers/:racer_id/entries/:id' => 'racers#entrie_detail'
+  end
+
+  #/api/races - to represent the collection of races
+  #/api/races/:id - to represent a specific race
+  #/api/races/:race_id/results - to represent all results for the specific race
+  #/api/races/:race_id/results/:id - to represent a specific results for the specific race
+  #/api/racers - to represent the collection of racers
+  #/api/racers/:id - to represent a specific racer
+  #/api/racers/:racer_id/entries - to represent a the collection of race entries for a specific racer
+  #/api/racers/:racer_id/entries/:id - to represent a specific race entry for a specific racer
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
