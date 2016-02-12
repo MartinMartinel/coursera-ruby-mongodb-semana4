@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     post 'races' => 'races#create'
 
     get 'races/:id' => 'races#show'
+    put 'races/:id' => 'races#update'
+    
     get 'races/:race_id/results' => 'races#results'
     get 'races/:race_id/results/:id' => 'races#results_detail'
 

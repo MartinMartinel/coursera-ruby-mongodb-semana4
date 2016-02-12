@@ -2,7 +2,7 @@
 module Api
   class RacesController < ApplicationController
 
-    before_action :set_race, only: [:show, :results, :results_detail]
+    before_action :set_race, only: [:show, :update, :results, :results_detail]
 
     protect_from_forgery with: :null_session
 
@@ -24,6 +24,11 @@ module Api
         race = Race.create(race_params)
         render plain: race.name, status: :created
       end
+    end
+
+    def update
+      @race.update_attributes(race_params)
+      render json: @race
     end
 
     def show
