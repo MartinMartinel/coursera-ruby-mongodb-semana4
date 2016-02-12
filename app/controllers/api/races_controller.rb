@@ -4,7 +4,9 @@ module Api
 
     def index
       if !request.accept || request.accept == "*/*"
-        render plain: "/api/races"
+        offset = ", offset=[#{params[:offset]}]" if  params[:offset]
+        limit = ", limit=[#{params[:limit]}]" if  params[:limit]
+        render plain: "/api/races#{offset}#{limit}"
       else
         #real implementation ...
       end      
