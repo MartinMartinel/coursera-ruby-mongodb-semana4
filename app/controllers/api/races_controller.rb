@@ -18,6 +18,10 @@ module Api
       end
     end
 
+    rescue_from ActionView::MissingTemplate do |exception|
+      render plain: "woops: we do not support that content-type[#{request.accept}]", :status => 415
+    end
+
     def index
       if !request.accept || request.accept == "*/*"
         offset = ", offset=[#{params[:offset]}]" if  params[:offset]
