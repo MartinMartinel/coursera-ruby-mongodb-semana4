@@ -67,6 +67,7 @@ module Api
         render plain: "/api/races/#{params[:race_id]}/results"
       else
         @entrants=@race.entrants
+        fresh_when last_modified: @race.entrants.max(:updated_at)
       end       
     end
 
