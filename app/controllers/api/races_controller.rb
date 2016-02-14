@@ -2,7 +2,7 @@
 module Api
   class RacesController < ApplicationController
 
-    before_action :set_race, only: [:show, :update, :destroy]
+    before_action :set_race, only: [:show, :update, :destroy, :results]
     before_action :set_entrant, only: [:results_detail, :results_detail_update]
 
     protect_from_forgery with: :null_session
@@ -66,7 +66,7 @@ module Api
       if !request.accept || request.accept == "*/*"
         render plain: "/api/races/#{params[:race_id]}/results"
       else
-        #real implementation ...
+        @entrants=@race.entrants
       end       
     end
 

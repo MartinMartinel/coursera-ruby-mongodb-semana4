@@ -18,6 +18,6 @@ json.t2 format_minutes @result.t2_secs
 json.run format_hours @result.run_secs
 json.mmile format_minutes @result.run_mmile
 json.result_url api_race_result_url(@result.race.id, @result)
-if result.racer.id
+if @result.racer.id
   json.racer_url api_racer_url(@result.racer.id)
 end
