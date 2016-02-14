@@ -68,7 +68,7 @@ module Api
       else
         
         max_last_modified = @race.entrants.max(:updated_at)
-        #if_modified_since = request.headers['If-Modified-Since']
+        if_modified_since = request.headers['If-Modified-Since']
         puts "****#{if_modified_since}****"
         if stale?(last_modified: max_last_modified)
           @entrants=@race.entrants  
