@@ -3,7 +3,7 @@ module Api
   class RacesController < ApplicationController
 
     before_action :set_race, only: [:show, :update, :destroy]
-    before_action :set_entrant, only: [:results_detail]
+    before_action :set_entrant, only: [:results_detail, :results_detail_update]
 
     protect_from_forgery with: :null_session
 
@@ -78,10 +78,42 @@ module Api
       end 
     end
 
+    def results_detail_update
+      #puts "*****#{result_params}****"
+      if result_params
+        if result_params[:swim]
+          @result.swim=@result.race.race.swim
+          @result.swim_secs = result_params[:swim].to_f
+        end
+        if result_params[:t1]
+          @result.t1=@result.race.race.t1
+          @result.t1_secs = result_params[:t1].to_f
+        end
+        if result_params[:bike]
+          @result.bike=@result.race.race.bike
+          @result.bike_secs = result_params[:bike].to_f
+        end
+        if result_params[:t2]
+          @result.t2=@result.race.race.t2
+          @result.t2_secs = result_params[:t2].to_f
+        end
+        if result_params[:run]
+          @result.run=@result.race.race.run
+          @result.run_secs = result_params[:run].to_f
+        end        
+        @result.save
+      end
+      render json: @result
+    end
+
     private
 
       def race_params
         params.require(:race).permit(:name, :date)
+      end
+
+      def result_params
+        params.require(:result).permit(:swim, :t1, :bike, :t2, :run)
       end
 
       def set_race

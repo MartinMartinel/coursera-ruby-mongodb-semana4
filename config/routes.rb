@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
     get 'races/:race_id/results' => 'races#results'
     get 'races/:race_id/results/:id' => 'races#results_detail', :as => "race_result"
+    patch 'races/:race_id/results/:id' => 'races#results_detail_update', :as => "race_result_update"
 
     get 'racers' => 'racers#index'
     get 'racers/:id' => 'racers#show', :as => "racer"
