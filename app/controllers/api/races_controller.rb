@@ -2,8 +2,8 @@
 module Api
   class RacesController < ApplicationController
 
-    before_action :set_race, only: [:show, :update, :destroy, :results]
-    before_action :set_entrant, only: [:results_detail, :results_detail_update]
+    before_action :set_race, only: [:update, :destroy]
+    before_action :set_entrant, only: [:results_detail_update]
 
     protect_from_forgery with: :null_session
 
@@ -36,7 +36,13 @@ module Api
     def create
       if !request.accept || request.accept == "*/*"
         #render plain: :nothing, status: :ok
-        render plain: params[:race][:name], status: :ok if params[:race][:name]
+        msg = ""
+        if params[:race]
+          if params[:race][:name]
+            msg = params[:race][:name]
+          end
+        end
+        render plain: msg, status: :ok 
       else
         race = Race.create(race_params)
         render plain: race.name, status: :created
@@ -58,15 +64,16 @@ module Api
       if !request.accept || request.accept == "*/*"
         render plain: "/api/races/#{params[:id]}"
       else
+        set_race
         render "race", content_type: "#{request.accept}"
       end       
     end
 
     def results
       if !request.accept || request.accept == "*/*"
-        render plain: "/api/races/#{params[:race_id]}/results"
+        render plain: "/api/races/#{params[:id]}/results"
       else
-        
+        set_race
         max_last_modified = @race.entrants.max(:updated_at)
         if_modified_since = request.headers['If-Modified-Since']
         puts "****#{if_modified_since}****"
@@ -81,6 +88,7 @@ module Api
       if !request.accept || request.accept == "*/*"
         render plain: "/api/races/#{params[:race_id]}/results/#{params[:id]}"
       else
+        set_entrant
         render :partial=>"result", :object=>@result
       end 
     end
