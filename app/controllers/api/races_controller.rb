@@ -66,8 +66,14 @@ module Api
       if !request.accept || request.accept == "*/*"
         render plain: "/api/races/#{params[:race_id]}/results"
       else
-        @entrants=@race.entrants
-        fresh_when last_modified: @race.entrants.max(:updated_at)
+        
+        max_last_modified = @race.entrants.max(:updated_at)
+        #if_modified_since = request.headers['If-Modified-Since']
+        puts "****#{if_modified_since}****"
+        if stale?(last_modified: max_last_modified)
+          @entrants=@race.entrants  
+        end
+        #fresh_when last_modified: @race.entrants.max(:updated_at)
       end       
     end
 
